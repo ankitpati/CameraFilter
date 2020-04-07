@@ -19,10 +19,7 @@ import android.Manifest;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.os.Bundle;
-import androidx.os.Environment;
-import androidx.app.ActivityCompat;
-import androidx.content.ContextCompat;
-import android.app.AppCompatActivity;
+import android.os.Environment;
 import android.view.GestureDetector;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -31,6 +28,10 @@ import android.view.TextureView;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
 import java.io.File;
 import java.io.FileNotFoundException;
