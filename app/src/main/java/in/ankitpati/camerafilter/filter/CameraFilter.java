@@ -41,7 +41,7 @@ public abstract class CameraFilter {
         0.0f, 1.0f,
     };
     private static final int BUF_ACTIVE_TEX_UNIT = GLES20.GL_TEXTURE8;
-    private static final float[] ROATED_TEXTURE_COORDS = {
+    private static final float[] ROTATED_TEXTURE_COORDS = {
         1.0f, 0.0f,
         1.0f, 1.0f,
         0.0f, 0.0f,
@@ -50,7 +50,7 @@ public abstract class CameraFilter {
     static FloatBuffer VERTEX_BUF, TEXTURE_COORD_BUF;
     static int PROGRAM = 0;
     private static RenderBuffer CAMERA_RENDER_BUF;
-    private static FloatBuffer ROATED_TEXTURE_COORD_BUF;
+    private static FloatBuffer ROTATED_TEXTURE_COORD_BUF;
 
     final long START_TIME = System.currentTimeMillis();
     int iFrame = 0;
@@ -75,13 +75,13 @@ public abstract class CameraFilter {
             TEXTURE_COORD_BUF.position(0);
         }
 
-        if (ROATED_TEXTURE_COORD_BUF == null) {
-            ROATED_TEXTURE_COORD_BUF =
-                    ByteBuffer.allocateDirect(ROATED_TEXTURE_COORDS.length * 4)
+        if (ROTATED_TEXTURE_COORD_BUF == null) {
+            ROTATED_TEXTURE_COORD_BUF =
+                    ByteBuffer.allocateDirect(ROTATED_TEXTURE_COORDS.length * 4)
                             .order(ByteOrder.nativeOrder())
                             .asFloatBuffer();
-            ROATED_TEXTURE_COORD_BUF.put(ROATED_TEXTURE_COORDS);
-            ROATED_TEXTURE_COORD_BUF.position(0);
+            ROTATED_TEXTURE_COORD_BUF.put(ROTATED_TEXTURE_COORDS);
+            ROTATED_TEXTURE_COORD_BUF.position(0);
         }
 
         if (PROGRAM == 0) {
@@ -124,7 +124,7 @@ public abstract class CameraFilter {
         int vTexCoordLocation = GLES20.glGetAttribLocation(PROGRAM, "vTexCoord");
         GLES20.glEnableVertexAttribArray(vTexCoordLocation);
         GLES20.glVertexAttribPointer(
-                vTexCoordLocation, 2, GLES20.GL_FLOAT, false, 4 * 2, ROATED_TEXTURE_COORD_BUF);
+                vTexCoordLocation, 2, GLES20.GL_FLOAT, false, 4 * 2, ROTATED_TEXTURE_COORD_BUF);
 
         // Render to texture
         CAMERA_RENDER_BUF.bind();
