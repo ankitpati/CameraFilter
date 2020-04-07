@@ -9,9 +9,9 @@ const float rotateRadian = PI/3.0;
 const float radiusRatio = 0.8;
 const float center = 0.5;
 
-void mainImage( out vec4 fragColor, in vec2 fragCoord )
-  {
-    float radius = min(iResolution.x,iResolution.y)*radiusRatio/2.0;
+void mainImage(out vec4 fragColor, in vec2 fragCoord)
+{
+    float radius = min(iResolution.x, iResolution.y)*radiusRatio/2.0;
     vec2 texCoord = fragCoord;
     vec2 currentUV = texCoord;
     currentUV.x *= iResolution.x;
@@ -23,14 +23,14 @@ void mainImage( out vec4 fragColor, in vec2 fragCoord )
     float beta = atan(deltaUV.y, deltaUV.x) + rotateRadian * 2.0 * (-(deltaR/radius)*(deltaR/radius) + 1.0);
 
     vec2 dstUV = currentUV;
-    if(deltaR <= radius){
+    if (deltaR <= radius){
         dstUV = centerUV + deltaR*vec2(cos(beta), sin(beta));
     }
     dstUV.x /=iResolution.x;
     dstUV.y /=iResolution.y;
     fragColor = texture2D(iChannel0, dstUV);
-   }
+}
 
 void main() {
- 	mainImage(gl_FragColor, texCoord);
- }
+    mainImage(gl_FragColor, texCoord);
+}

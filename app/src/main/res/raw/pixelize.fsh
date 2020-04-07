@@ -4,7 +4,7 @@ uniform vec3                iResolution;
 uniform sampler2D           iChannel0;
 varying vec2                texCoord;
 
-#define S (iResolution.x / 6e1) // The cell size.
+#define S (iResolution.x / 6e1)// The cell size.
 
 void mainImage(out vec4 c, vec2 p)
 {
@@ -12,5 +12,5 @@ void mainImage(out vec4 c, vec2 p)
 }
 
 void main() {
-	mainImage(gl_FragColor, texCoord*iResolution.xy);
+    mainImage(gl_FragColor, texCoord*iResolution.xy);
 }

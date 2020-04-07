@@ -22,9 +22,7 @@ import in.ankitpati.camerafilter.MyGLUtils;
 import in.ankitpati.camerafilter.R;
 import in.ankitpati.camerafilter.RenderBuffer;
 
-/**
- * @author nekocode (nekocode.cn@gmail.com)
- */
+/** @author nekocode (nekocode.cn@gmail.com) */
 public class JFAVoronoiFilter extends CameraFilter {
     private int programImg;
     private int programA;
@@ -56,46 +54,55 @@ public class JFAVoronoiFilter extends CameraFilter {
         }
 
         // Render to buf a
-        setupShaderInputs(programA,
-                new int[]{canvasWidth, canvasHeight},
-                new int[]{cameraTexId, bufA.getTexId()},
-                new int[][]{new int[]{canvasWidth, canvasHeight}, new int[]{canvasWidth, canvasHeight}});
+        setupShaderInputs(
+                programA,
+                new int[] {canvasWidth, canvasHeight},
+                new int[] {cameraTexId, bufA.getTexId()},
+                new int[][] {
+                    new int[] {canvasWidth, canvasHeight}, new int[] {canvasWidth, canvasHeight}
+                });
         bufA.bind();
         GLES20.glClear(GLES20.GL_COLOR_BUFFER_BIT);
         GLES20.glDrawArrays(GLES20.GL_TRIANGLE_STRIP, 0, 4);
         bufA.unbind();
         GLES20.glClear(GLES20.GL_COLOR_BUFFER_BIT);
 
-
         // Render to buf b
-        setupShaderInputs(programB,
-                new int[]{canvasWidth, canvasHeight},
-                new int[]{bufB.getTexId(), bufA.getTexId()},
-                new int[][]{new int[]{canvasWidth, canvasHeight}, new int[]{canvasWidth, canvasHeight}});
+        setupShaderInputs(
+                programB,
+                new int[] {canvasWidth, canvasHeight},
+                new int[] {bufB.getTexId(), bufA.getTexId()},
+                new int[][] {
+                    new int[] {canvasWidth, canvasHeight}, new int[] {canvasWidth, canvasHeight}
+                });
         bufB.bind();
         GLES20.glClear(GLES20.GL_COLOR_BUFFER_BIT);
         GLES20.glDrawArrays(GLES20.GL_TRIANGLE_STRIP, 0, 4);
         bufB.unbind();
         GLES20.glClear(GLES20.GL_COLOR_BUFFER_BIT);
 
-
         // Render to buf c
-        setupShaderInputs(programC,
-                new int[]{canvasWidth, canvasHeight},
-                new int[]{bufC.getTexId(), bufB.getTexId()},
-                new int[][]{new int[]{canvasWidth, canvasHeight}, new int[]{canvasWidth, canvasHeight}});
+        setupShaderInputs(
+                programC,
+                new int[] {canvasWidth, canvasHeight},
+                new int[] {bufC.getTexId(), bufB.getTexId()},
+                new int[][] {
+                    new int[] {canvasWidth, canvasHeight}, new int[] {canvasWidth, canvasHeight}
+                });
         bufC.bind();
         GLES20.glClear(GLES20.GL_COLOR_BUFFER_BIT);
         GLES20.glDrawArrays(GLES20.GL_TRIANGLE_STRIP, 0, 4);
         bufC.unbind();
         GLES20.glClear(GLES20.GL_COLOR_BUFFER_BIT);
 
-
         // Render to screen
-        setupShaderInputs(programImg,
-                new int[]{canvasWidth, canvasHeight},
-                new int[]{bufC.getTexId(), bufA.getTexId()},
-                new int[][]{new int[]{canvasWidth, canvasHeight}, new int[]{canvasWidth, canvasHeight}});
+        setupShaderInputs(
+                programImg,
+                new int[] {canvasWidth, canvasHeight},
+                new int[] {bufC.getTexId(), bufA.getTexId()},
+                new int[][] {
+                    new int[] {canvasWidth, canvasHeight}, new int[] {canvasWidth, canvasHeight}
+                });
         GLES20.glDrawArrays(GLES20.GL_TRIANGLE_STRIP, 0, 4);
     }
 }

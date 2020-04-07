@@ -43,39 +43,86 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 
-/**
- * @author nekocode (nekocode.cn@gmail.com)
- */
+/** @author nekocode (nekocode.cn@gmail.com) */
 public class MainActivity extends AppCompatActivity implements GestureDetector.OnGestureListener {
     private static final int REQUEST_CAMERA_PERMISSION = 101;
+    String[] TITLES = {
+        "Original",
+        "EdgeDectection",
+        "Pixelize",
+        "EMInterference",
+        "TrianglesMosaic",
+        "Legofied",
+        "TileMosaic",
+        "Blueorange",
+        "ChromaticAberration",
+        "BasicDeform",
+        "Contrast",
+        "NoiseWarp",
+        "Refraction",
+        "Mapping",
+        "Crosshatch",
+        "LichtensteinEsque",
+        "AsciiArt",
+        "MoneyFilter",
+        "Cracked",
+        "Polygonization",
+        "JFAVoronoi",
+        "BlackAndWhite",
+        "Gray",
+        "Negative",
+        "Nostalgia",
+        "Casting",
+        "Relief",
+        "Swirl",
+        "HexagonMosaic",
+        "Mirror",
+        "Triple",
+        "Cartoon",
+        "WaterReflection"
+    };
+    Integer[] FILTER_RES_IDS = {
+        R.id.filter0,
+        R.id.filter1,
+        R.id.filter2,
+        R.id.filter3,
+        R.id.filter4,
+        R.id.filter5,
+        R.id.filter6,
+        R.id.filter7,
+        R.id.filter8,
+        R.id.filter9,
+        R.id.filter10,
+        R.id.filter11,
+        R.id.filter12,
+        R.id.filter13,
+        R.id.filter14,
+        R.id.filter15,
+        R.id.filter16,
+        R.id.filter17,
+        R.id.filter18,
+        R.id.filter19,
+        R.id.filter20,
+        R.id.filter21,
+        R.id.filter22,
+        R.id.filter23,
+        R.id.filter24,
+        R.id.filter25,
+        R.id.filter26,
+        R.id.filter27,
+        R.id.filter28,
+        R.id.filter29,
+        R.id.filter30,
+        R.id.filter31,
+        R.id.filter32
+    };
+    ArrayList<Integer> mFilterArray = new ArrayList<>(Arrays.asList(FILTER_RES_IDS));
+    GestureDetector mGestureDetector;
     private FrameLayout container;
     private CameraRenderer renderer;
     private TextureView textureView;
     private int filterId = R.id.filter0;
     private int mCurrentFilterId = 0;
-
-    String[] TITLES = {"Original", "EdgeDectection", "Pixelize",
-            "EMInterference", "TrianglesMosaic", "Legofied",
-            "TileMosaic", "Blueorange", "ChromaticAberration",
-            "BasicDeform", "Contrast", "NoiseWarp", "Refraction",
-            "Mapping", "Crosshatch", "LichtensteinEsque",
-            "AsciiArt", "MoneyFilter", "Cracked", "Polygonization",
-            "JFAVoronoi", "BlackAndWhite", "Gray", "Negative",
-            "Nostalgia", "Casting", "Relief", "Swirl", "HexagonMosaic",
-            "Mirror", "Triple", "Cartoon", "WaterReflection"
-    };
-
-    Integer[] FILTER_RES_IDS = {R.id.filter0, R.id.filter1, R.id.filter2, R.id.filter3, R.id.filter4,
-            R.id.filter5, R.id.filter6, R.id.filter7, R.id.filter8, R.id.filter9, R.id.filter10,
-            R.id.filter11, R.id.filter12, R.id.filter13, R.id.filter14, R.id.filter15, R.id.filter16,
-            R.id.filter17, R.id.filter18, R.id.filter19, R.id.filter20,
-            R.id.filter21, R.id.filter22, R.id.filter23, R.id.filter24,
-            R.id.filter25, R.id.filter26, R.id.filter27, R.id.filter28,
-            R.id.filter29, R.id.filter30, R.id.filter31, R.id.filter32};
-
-    ArrayList<Integer> mFilterArray = new ArrayList<>(Arrays.asList(FILTER_RES_IDS));
-
-    GestureDetector mGestureDetector;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,18 +130,17 @@ public class MainActivity extends AppCompatActivity implements GestureDetector.O
         setContentView(container = new FrameLayout(this));
         setTitle(TITLES[mCurrentFilterId]);
 
-
-        if (ContextCompat.checkSelfPermission(this,
-                Manifest.permission.CAMERA)
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA)
                 != PackageManager.PERMISSION_GRANTED) {
 
             // Should we show an explanation?
-            if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.CAMERA)) {
+            if (ActivityCompat.shouldShowRequestPermissionRationale(
+                    this, Manifest.permission.CAMERA)) {
                 Toast.makeText(this, "Camera access is required.", Toast.LENGTH_SHORT).show();
 
             } else {
-                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CAMERA},
-                        REQUEST_CAMERA_PERMISSION);
+                ActivityCompat.requestPermissions(
+                        this, new String[] {Manifest.permission.CAMERA}, REQUEST_CAMERA_PERMISSION);
             }
 
         } else {
@@ -105,13 +151,16 @@ public class MainActivity extends AppCompatActivity implements GestureDetector.O
     }
 
     @Override
-    public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
+    public void onRequestPermissionsResult(
+            int requestCode, String[] permissions, int[] grantResults) {
         switch (requestCode) {
-            case REQUEST_CAMERA_PERMISSION: {
-                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    setupCameraPreviewView();
+            case REQUEST_CAMERA_PERMISSION:
+                {
+                    if (grantResults.length > 0
+                            && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                        setupCameraPreviewView();
+                    }
                 }
-            }
         }
     }
 
@@ -121,21 +170,32 @@ public class MainActivity extends AppCompatActivity implements GestureDetector.O
         container.addView(textureView);
         textureView.setSurfaceTextureListener(renderer);
 
-//        textureView.setOnTouchListener(this);
-        textureView.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View view, MotionEvent motionEvent) {
-                mGestureDetector.onTouchEvent(motionEvent);
-                return true;
-            }
-        });
+        // textureView.setOnTouchListener(this);
+        textureView.setOnTouchListener(
+                new View.OnTouchListener() {
+                    @Override
+                    public boolean onTouch(View view, MotionEvent motionEvent) {
+                        mGestureDetector.onTouchEvent(motionEvent);
+                        return true;
+                    }
+                });
 
-        textureView.addOnLayoutChangeListener(new View.OnLayoutChangeListener() {
-            @Override
-            public void onLayoutChange(View v, int left, int top, int right, int bottom, int oldLeft, int oldTop, int oldRight, int oldBottom) {
-                renderer.onSurfaceTextureSizeChanged(null, v.getWidth(), v.getHeight());
-            }
-        });
+        textureView.addOnLayoutChangeListener(
+                new View.OnLayoutChangeListener() {
+                    @Override
+                    public void onLayoutChange(
+                            View v,
+                            int left,
+                            int top,
+                            int right,
+                            int bottom,
+                            int oldLeft,
+                            int oldTop,
+                            int oldRight,
+                            int oldBottom) {
+                        renderer.onSurfaceTextureSizeChanged(null, v.getWidth(), v.getHeight());
+                    }
+                });
     }
 
     @Override
@@ -150,17 +210,19 @@ public class MainActivity extends AppCompatActivity implements GestureDetector.O
 
         // TODO: need tidy up
         if (filterId == R.id.capture) {
-            Toast.makeText(this,
-                    capture() ? "The capture has been saved to your sdcard root path." :
-                            "Save failed!",
-                    Toast.LENGTH_SHORT).show();
+            Toast.makeText(
+                            this,
+                            capture()
+                                    ? "The capture has been saved to your sdcard root path."
+                                    : "Save failed!",
+                            Toast.LENGTH_SHORT)
+                    .show();
             return true;
         }
 
         setTitle(item.getTitle());
 
-        if (renderer != null)
-            renderer.setSelectedFilter(filterId);
+        if (renderer != null) renderer.setSelectedFilter(filterId);
         mCurrentFilterId = mFilterArray.indexOf(filterId);
         return true;
     }
@@ -208,9 +270,7 @@ public class MainActivity extends AppCompatActivity implements GestureDetector.O
     }
 
     @Override
-    public void onShowPress(MotionEvent motionEvent) {
-
-    }
+    public void onShowPress(MotionEvent motionEvent) {}
 
     @Override
     public boolean onSingleTapUp(MotionEvent motionEvent) {
@@ -223,9 +283,7 @@ public class MainActivity extends AppCompatActivity implements GestureDetector.O
     }
 
     @Override
-    public void onLongPress(MotionEvent motionEvent) {
-
-    }
+    public void onLongPress(MotionEvent motionEvent) {}
 
     @Override
     public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {

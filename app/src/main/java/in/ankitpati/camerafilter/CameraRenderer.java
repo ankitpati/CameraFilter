@@ -68,9 +68,7 @@ import in.ankitpati.camerafilter.filter.TrianglesMosaicFilter;
 import in.ankitpati.camerafilter.filter.TripleFilter;
 import in.ankitpati.camerafilter.filter.WaterReflectionFilter;
 
-/**
- * @author nekocode (nekocode.cn@gmail.com)
- */
+/** @author nekocode (nekocode.cn@gmail.com) */
 public class CameraRenderer implements Runnable, TextureView.SurfaceTextureListener {
     private static final String TAG = "CameraRenderer";
     private static final int EGL_OPENGL_ES2_BIT = 4;
@@ -99,8 +97,7 @@ public class CameraRenderer implements Runnable, TextureView.SurfaceTextureListe
     }
 
     @Override
-    public void onSurfaceTextureUpdated(SurfaceTexture surface) {
-    }
+    public void onSurfaceTextureUpdated(SurfaceTexture surface) {}
 
     @Override
     public void onSurfaceTextureSizeChanged(SurfaceTexture surface, int width, int height) {
@@ -145,8 +142,7 @@ public class CameraRenderer implements Runnable, TextureView.SurfaceTextureListe
     public void setSelectedFilter(int id) {
         selectedFilterId = id;
         selectedFilter = cameraFilterMap.get(id);
-        if (selectedFilter != null)
-            selectedFilter.onAttach();
+        if (selectedFilter != null) selectedFilter.onAttach();
     }
 
     @Override
@@ -229,7 +225,7 @@ public class CameraRenderer implements Runnable, TextureView.SurfaceTextureListe
         }
 
         cameraSurfaceTexture.release();
-        GLES20.glDeleteTextures(1, new int[]{cameraTextureId}, 0);
+        GLES20.glDeleteTextures(1, new int[] {cameraTextureId}, 0);
     }
 
     private void initGL(SurfaceTexture texture) {
@@ -237,34 +233,43 @@ public class CameraRenderer implements Runnable, TextureView.SurfaceTextureListe
 
         eglDisplay = egl10.eglGetDisplay(EGL10.EGL_DEFAULT_DISPLAY);
         if (eglDisplay == EGL10.EGL_NO_DISPLAY) {
-            throw new RuntimeException("eglGetDisplay failed " +
-                    android.opengl.GLUtils.getEGLErrorString(egl10.eglGetError()));
+            throw new RuntimeException(
+                    "eglGetDisplay failed "
+                            + android.opengl.GLUtils.getEGLErrorString(egl10.eglGetError()));
         }
 
         int[] version = new int[2];
         if (!egl10.eglInitialize(eglDisplay, version)) {
-            throw new RuntimeException("eglInitialize failed " +
-                    android.opengl.GLUtils.getEGLErrorString(egl10.eglGetError()));
+            throw new RuntimeException(
+                    "eglInitialize failed "
+                            + android.opengl.GLUtils.getEGLErrorString(egl10.eglGetError()));
         }
 
         int[] configsCount = new int[1];
         EGLConfig[] configs = new EGLConfig[1];
         int[] configSpec = {
-                EGL10.EGL_RENDERABLE_TYPE,
-                EGL_OPENGL_ES2_BIT,
-                EGL10.EGL_RED_SIZE, 8,
-                EGL10.EGL_GREEN_SIZE, 8,
-                EGL10.EGL_BLUE_SIZE, 8,
-                EGL10.EGL_ALPHA_SIZE, 8,
-                EGL10.EGL_DEPTH_SIZE, 0,
-                EGL10.EGL_STENCIL_SIZE, 0,
-                EGL10.EGL_NONE
+            EGL10.EGL_RENDERABLE_TYPE,
+            EGL_OPENGL_ES2_BIT,
+            EGL10.EGL_RED_SIZE,
+            8,
+            EGL10.EGL_GREEN_SIZE,
+            8,
+            EGL10.EGL_BLUE_SIZE,
+            8,
+            EGL10.EGL_ALPHA_SIZE,
+            8,
+            EGL10.EGL_DEPTH_SIZE,
+            0,
+            EGL10.EGL_STENCIL_SIZE,
+            0,
+            EGL10.EGL_NONE
         };
 
         EGLConfig eglConfig = null;
         if (!egl10.eglChooseConfig(eglDisplay, configSpec, configs, 1, configsCount)) {
-            throw new IllegalArgumentException("eglChooseConfig failed " +
-                    android.opengl.GLUtils.getEGLErrorString(egl10.eglGetError()));
+            throw new IllegalArgumentException(
+                    "eglChooseConfig failed "
+                            + android.opengl.GLUtils.getEGLErrorString(egl10.eglGetError()));
         } else if (configsCount[0] > 0) {
             eglConfig = configs[0];
         }
@@ -273,7 +278,8 @@ public class CameraRenderer implements Runnable, TextureView.SurfaceTextureListe
         }
 
         int[] attrib_list = {EGL_CONTEXT_CLIENT_VERSION, 2, EGL10.EGL_NONE};
-        eglContext = egl10.eglCreateContext(eglDisplay, eglConfig, EGL10.EGL_NO_CONTEXT, attrib_list);
+        eglContext =
+                egl10.eglCreateContext(eglDisplay, eglConfig, EGL10.EGL_NO_CONTEXT, attrib_list);
         eglSurface = egl10.eglCreateWindowSurface(eglDisplay, eglConfig, texture, null);
 
         if (eglSurface == null || eglSurface == EGL10.EGL_NO_SURFACE) {
@@ -282,13 +288,15 @@ public class CameraRenderer implements Runnable, TextureView.SurfaceTextureListe
                 Log.e(TAG, "eglCreateWindowSurface returned EGL10.EGL_BAD_NATIVE_WINDOW");
                 return;
             }
-            throw new RuntimeException("eglCreateWindowSurface failed " +
-                    android.opengl.GLUtils.getEGLErrorString(error));
+            throw new RuntimeException(
+                    "eglCreateWindowSurface failed "
+                            + android.opengl.GLUtils.getEGLErrorString(error));
         }
 
         if (!egl10.eglMakeCurrent(eglDisplay, eglSurface, eglSurface, eglContext)) {
-            throw new RuntimeException("eglMakeCurrent failed " +
-                    android.opengl.GLUtils.getEGLErrorString(egl10.eglGetError()));
+            throw new RuntimeException(
+                    "eglMakeCurrent failed "
+                            + android.opengl.GLUtils.getEGLErrorString(egl10.eglGetError()));
         }
     }
 

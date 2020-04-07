@@ -6,8 +6,8 @@ varying vec2                texCoord;
 
 const float mosaicSize = 0.03;
 
-void mainImage( out vec4 fragColor, in vec2 fragCoord )
-  {
+void mainImage(out vec4 fragColor, in vec2 fragCoord)
+{
     float length = mosaicSize;
     float TR = 0.866025;
 
@@ -28,7 +28,7 @@ void mainImage( out vec4 fragColor, in vec2 fragCoord )
             v1 = vec2(length * 1.5 * float(wx), length * TR * float(wy + 1));
             v2 = vec2(length * 1.5 * float(wx + 1), length * TR * float(wy));
         }
-    }else {
+    } else {
         if (wy/2 * 2 == wy) {
             //(0,1),(1,0)
             v1 = vec2(length * 1.5 * float(wx), length * TR * float(wy + 1));
@@ -50,7 +50,7 @@ void mainImage( out vec4 fragColor, in vec2 fragCoord )
     vec4 color = texture2D(iChannel0, vn);
 
     fragColor = color;
-   }
+}
 
 void main () {
     mainImage(gl_FragColor, texCoord);

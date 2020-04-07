@@ -22,9 +22,9 @@ vec4 StepJFA (in vec2 fragCoord, in float level)
 
     for (int y = -1; y <= 1; ++y) {
         for (int x = -1; x <= 1; ++x) {
-            vec2 sampleCoord = fragCoord + vec2(x,y) * stepwidth;
+            vec2 sampleCoord = fragCoord + vec2(x, y) * stepwidth;
 
-            vec4 data = texture2D( iChannel0, sampleCoord / iChannelResolution[0].xy);
+            vec4 data = texture2D(iChannel0, sampleCoord / iChannelResolution[0].xy);
             vec2 seedCoord = data.xy * iChannelResolution[0].xy;
             float dist = length(seedCoord - fragCoord);
             if ((seedCoord.x != 0.0 || seedCoord.y != 0.0) && dist < bestDistance)
@@ -39,15 +39,15 @@ vec4 StepJFA (in vec2 fragCoord, in float level)
 }
 
 //============================================================
-void mainImage( out vec4 fragColor, in vec2 fragCoord )
+void mainImage(out vec4 fragColor, in vec2 fragCoord)
 {
     float fFrame = float(iFrame);
-    float level = mod(fFrame,c_maxSteps);
+    float level = mod(fFrame, c_maxSteps);
     if (level < .5) {
         if (texture2D(iChannel1, fragCoord / iResolution.xy).w > .5)
-        	fragColor = vec4(fragCoord / iChannelResolution[0].xy, 0.0, 0.0);
+        fragColor = vec4(fragCoord / iChannelResolution[0].xy, 0.0, 0.0);
         else
-            fragColor = vec4(0.0);
+        fragColor = vec4(0.0);
         return;
     }
 
@@ -56,5 +56,5 @@ void mainImage( out vec4 fragColor, in vec2 fragCoord )
 
 
 void main() {
-	mainImage(gl_FragColor, texCoord*iResolution.xy);
+    mainImage(gl_FragColor, texCoord*iResolution.xy);
 }

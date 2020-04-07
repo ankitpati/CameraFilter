@@ -30,9 +30,7 @@ import java.io.InputStream;
 
 import javax.microedition.khronos.opengles.GL10;
 
-/**
- * @author nekocode (nekocode.cn@gmail.com)
- */
+/** @author nekocode (nekocode.cn@gmail.com) */
 public class MyGLUtils {
     private static final String TAG = "MyGLUtils";
 
@@ -47,14 +45,24 @@ public class MyGLUtils {
 
         // Set texture default draw parameters
         if (textureType == GLES11Ext.GL_TEXTURE_EXTERNAL_OES) {
-            GLES20.glTexParameterf(GLES11Ext.GL_TEXTURE_EXTERNAL_OES, GL10.GL_TEXTURE_MIN_FILTER, GL10.GL_LINEAR);
-            GLES20.glTexParameterf(GLES11Ext.GL_TEXTURE_EXTERNAL_OES, GL10.GL_TEXTURE_MAG_FILTER, GL10.GL_LINEAR);
-            GLES20.glTexParameteri(GLES11Ext.GL_TEXTURE_EXTERNAL_OES, GL10.GL_TEXTURE_WRAP_S, GL10.GL_CLAMP_TO_EDGE);
-            GLES20.glTexParameteri(GLES11Ext.GL_TEXTURE_EXTERNAL_OES, GL10.GL_TEXTURE_WRAP_T, GL10.GL_CLAMP_TO_EDGE);
+            GLES20.glTexParameterf(
+                    GLES11Ext.GL_TEXTURE_EXTERNAL_OES, GL10.GL_TEXTURE_MIN_FILTER, GL10.GL_LINEAR);
+            GLES20.glTexParameterf(
+                    GLES11Ext.GL_TEXTURE_EXTERNAL_OES, GL10.GL_TEXTURE_MAG_FILTER, GL10.GL_LINEAR);
+            GLES20.glTexParameteri(
+                    GLES11Ext.GL_TEXTURE_EXTERNAL_OES,
+                    GL10.GL_TEXTURE_WRAP_S,
+                    GL10.GL_CLAMP_TO_EDGE);
+            GLES20.glTexParameteri(
+                    GLES11Ext.GL_TEXTURE_EXTERNAL_OES,
+                    GL10.GL_TEXTURE_WRAP_T,
+                    GL10.GL_CLAMP_TO_EDGE);
 
         } else {
-            GLES20.glTexParameterf(GLES20.GL_TEXTURE_2D, GL10.GL_TEXTURE_MIN_FILTER, GL10.GL_LINEAR);
-            GLES20.glTexParameterf(GLES20.GL_TEXTURE_2D, GL10.GL_TEXTURE_MAG_FILTER, GL10.GL_LINEAR);
+            GLES20.glTexParameterf(
+                    GLES20.GL_TEXTURE_2D, GL10.GL_TEXTURE_MIN_FILTER, GL10.GL_LINEAR);
+            GLES20.glTexParameterf(
+                    GLES20.GL_TEXTURE_2D, GL10.GL_TEXTURE_MAG_FILTER, GL10.GL_LINEAR);
             GLES20.glTexParameteri(GLES20.GL_TEXTURE_2D, GL10.GL_TEXTURE_WRAP_S, GL10.GL_REPEAT);
             GLES20.glTexParameteri(GLES20.GL_TEXTURE_2D, GL10.GL_TEXTURE_WRAP_T, GL10.GL_REPEAT);
         }
@@ -67,7 +75,7 @@ public class MyGLUtils {
 
         if (texId != 0) {
             final BitmapFactory.Options options = new BitmapFactory.Options();
-            options.inScaled = false;   // No pre-scaling
+            options.inScaled = false; // No pre-scaling
             options.inJustDecodeBounds = true;
 
             // Just decode bounds
@@ -79,7 +87,8 @@ public class MyGLUtils {
 
             // Decode
             options.inJustDecodeBounds = false;
-            Bitmap bitmap = BitmapFactory.decodeResource(context.getResources(), resourceId, options);
+            Bitmap bitmap =
+                    BitmapFactory.decodeResource(context.getResources(), resourceId, options);
 
             // Load the bitmap into the bound texture.
             GLUtils.texImage2D(GLES20.GL_TEXTURE_2D, 0, bitmap, 0);
@@ -91,8 +100,10 @@ public class MyGLUtils {
         return texId;
     }
 
-    public static int buildProgram(Context context, int vertexSourceRawId, int fragmentSourceRawId) {
-        return buildProgram(getStringFromRaw(context, vertexSourceRawId),
+    public static int buildProgram(
+            Context context, int vertexSourceRawId, int fragmentSourceRawId) {
+        return buildProgram(
+                getStringFromRaw(context, vertexSourceRawId),
                 getStringFromRaw(context, fragmentSourceRawId));
     }
 

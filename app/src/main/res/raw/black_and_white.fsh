@@ -4,7 +4,7 @@ uniform vec3                iResolution;
 uniform sampler2D           iChannel0;
 varying vec2                texCoord;
 
-void mainImage( out vec4 fragColor, in vec2 fragCoord )
+void mainImage(out vec4 fragColor, in vec2 fragCoord)
 {
     vec4 mask = texture2D(iChannel0, fragCoord);
     float color = (mask.r + mask.g + mask.b) / 3.0;
@@ -14,5 +14,5 @@ void mainImage( out vec4 fragColor, in vec2 fragCoord )
 }
 
 void main() {
-	mainImage(gl_FragColor, texCoord);
+    mainImage(gl_FragColor, texCoord);
 }

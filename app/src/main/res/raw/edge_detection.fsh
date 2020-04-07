@@ -5,7 +5,7 @@ uniform vec3                iResolution;
 uniform sampler2D           iChannel0;
 varying vec2                texCoord;
 
-void mainImage( out vec4 fragColor, in vec2 fragCoord )
+void mainImage(out vec4 fragColor, in vec2 fragCoord)
 {
     vec2 uv = fragCoord.xy;
     vec4 color =  texture2D(iChannel0, fragCoord);

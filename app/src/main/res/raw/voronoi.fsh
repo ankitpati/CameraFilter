@@ -9,17 +9,17 @@ uniform sampler2D           iChannel1;
 varying vec2                texCoord;
 
 
-void mainImage( out vec4 fragColor, in vec2 fragCoord )
+void mainImage(out vec4 fragColor, in vec2 fragCoord)
 {
-	vec2 uv = fragCoord.xy / iResolution.xy;
+    vec2 uv = fragCoord.xy / iResolution.xy;
 
-#if 0 // debug feature extraction
+    #if 0// debug feature extraction
 
     fragColor = texture2D(iChannel1, uv).wwww;
 
-#else
+    #else
 
-	vec4 cell = texture2D(iChannel0, uv);
+    vec4 cell = texture2D(iChannel0, uv);
     vec2 cell_uv = cell.xy;
     vec4 video = texture2D(iChannel1, cell_uv);
     vec2 dcell = cell_uv * iChannelResolution[0].xy - fragCoord.xy;
@@ -27,9 +27,9 @@ void mainImage( out vec4 fragColor, in vec2 fragCoord )
     vec3 color = video.xyz * (.9 + len*.005);
     fragColor = vec4(color, 1.);
 
-#endif
+    #endif
 }
 
 void main() {
-	mainImage(gl_FragColor, texCoord*iResolution.xy);
+    mainImage(gl_FragColor, texCoord*iResolution.xy);
 }

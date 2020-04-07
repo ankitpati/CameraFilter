@@ -43,16 +43,16 @@ float noise3d(vec3 p)
     return o4.y * d.y + o4.x * (1.0 - d.y);
 }
 
-void mainImage( out vec4 fragColor, in vec2 fragCoord )
+void mainImage(out vec4 fragColor, in vec2 fragCoord)
 {
-	vec2 uv = fragCoord.xy;
-	float v1 = noise3d(vec3(uv * 10.0, 0.0));
-	float v2 = noise3d(vec3(uv * 10.0, 1.0));
+    vec2 uv = fragCoord.xy;
+    float v1 = noise3d(vec3(uv * 10.0, 0.0));
+    float v2 = noise3d(vec3(uv * 10.0, 1.0));
 
-	vec4 color  = texture2D(iChannel0, uv + vec2(v1, v2) * 0.1);
-	fragColor = color;
+    vec4 color  = texture2D(iChannel0, uv + vec2(v1, v2) * 0.1);
+    fragColor = color;
 }
 
 void main() {
-	mainImage(gl_FragColor, texCoord);
+    mainImage(gl_FragColor, texCoord);
 }
