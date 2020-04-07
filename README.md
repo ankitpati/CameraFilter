@@ -1,13 +1,12 @@
 # CameraFilter
-[![Apache 2.0 License](https://img.shields.io/badge/license-Apache%202.0-blue.svg?style=flat)](http://www.apache.org/licenses/LICENSE-2.0.html)
 
 Realtime camera filters. Process frames by OpenGL shaders.
 
-**[Download the apk](https://github.com/nekocode/CameraFilter/releases)** to have a try.
-
 ## Filters
 
-Thanks to the original authors of the shader codes. I just port them from webgl to opengl es.
+Thanks to the original authors of the shaders. Nekocode ported them from WebGL
+to OpenGL ES. Ankit Pati modernised the codebase by using newer Android
+libraries.
 
 | Filter | Preview | Filter | Preview |
 | :----- | :------ | :----- | :------ |
