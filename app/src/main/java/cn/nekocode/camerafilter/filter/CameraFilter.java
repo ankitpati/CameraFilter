@@ -18,7 +18,7 @@ package cn.nekocode.camerafilter.filter;
 import android.content.Context;
 import android.opengl.GLES11Ext;
 import android.opengl.GLES20;
-import android.support.annotation.CallSuper;
+import androidx.annotation.CallSuper;
 
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
